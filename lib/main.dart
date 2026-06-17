@@ -203,10 +203,13 @@ class _CadastroScreenState extends State<CadastroScreen> {
       _nomeCtrl.clear();
       _cpfCtrl.clear();
       _senhaCtrl.clear();
+      if (!mounted) return;
       _mostrarMensagem('Cliente cadastrado com sucesso!');
     } catch (e) {
+      if (!mounted) return;
       _mostrarMensagem('Erro: $e', erro: true);
     }
+    if (!mounted) return;
     setState(() => _carregando = false);
   }
 
@@ -321,8 +324,10 @@ class _ListaClientesScreenState extends State<ListaClientesScreen> {
           .from('clientes')
           .select('id, nome, cpf, senha_gov')
           .order('id', ascending: false);
+      if (!mounted) return;
       setState(() => clientes = dados);
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Erro ao carregar clientes.'),
@@ -330,6 +335,7 @@ class _ListaClientesScreenState extends State<ListaClientesScreen> {
         ),
       );
     }
+    if (!mounted) return;
     setState(() => carregando = false);
   }
 
