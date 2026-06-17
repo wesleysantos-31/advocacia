@@ -1,0 +1,49 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Documents/flutter/.dart_tool"
+		},
+		{
+			"path": "../../../../Documents/flutter/.gemini"
+		},
+		{
+			"path": "../../../../Documents/flutter/.git"
+		},
+		{
+			"path": "../../../../Documents/flutter/.github"
+		},
+		{
+			"path": "../../../../Documents/flutter/.idea"
+		},
+		{
+			"path": "../../../../Documents/flutter/.pub-preload-cache"
+		},
+		{
+			"path": "../../../../Documents/flutter/.vscode"
+		},
+		{
+			"path": "../../../../Documents/flutter/bin"
+		},
+		{
+			"path": "../../../../Documents/flutter/buildtools"
+		},
+		{
+			"path": "../../../../Documents/flutter/dev"
+		},
+		{
+			"path": "../../../../Documents/flutter/docs"
+		},
+		{
+			"path": "../../../../Documents/flutter/engine"
+		},
+		{
+			"path": "../../../../Documents/flutter/examples"
+		},
+		{
+			"path": "../../../../Documents/flutter/packages"
+		},
+		{
+			"path": "../../../../Documents/flutter/third_party"
+		}
+	]
+}
