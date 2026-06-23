@@ -6,7 +6,7 @@ import '../theme.dart';
 import 'cadastro_screen.dart';
 import 'lista_clientes_screen.dart';
 import 'login_screen.dart';
-import 'usuarios_screen.dart';
+import 'perfil_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -279,16 +279,16 @@ class _MenuScreenState extends State<MenuScreen> {
                           },
                         ),
                         _MenuCard(
-                          icone: Icons.group_rounded,
-                          titulo: 'Gerenciar Usuários',
+                          icone: Icons.person_rounded,
+                          titulo: 'Meu Perfil',
                           descricao:
-                              'Editar e gerenciar dados dos usuários do sistema',
+                              'Editar suas informações pessoais e credenciais',
                           cor: AppColors.accent,
                           onTap: () async {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const UsuariosScreen(),
+                                builder: (_) => const PerfilScreen(),
                               ),
                             );
                             _carregarDashboard();
