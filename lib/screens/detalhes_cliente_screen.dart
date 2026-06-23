@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/cliente.dart';
@@ -537,6 +538,29 @@ class _DetalhesClienteScreenState extends State<DetalhesClienteScreen> {
                                 tooltip: _senhaVisivel
                                     ? 'Ocultar'
                                     : 'Mostrar',
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  await Clipboard.setData(
+                                      ClipboardData(text: c.senhaGov!));
+                                  if (!mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text('Senha copiada!'),
+                                      backgroundColor: AppColors.success,
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.copy_rounded,
+                                  color: AppColors.primary,
+                                  size: 20,
+                                ),
+                                tooltip: 'Copiar senha',
                               ),
                             ],
                           ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import '../services/cliente_service.dart';
+import '../services/usuario_service.dart';
 import '../theme.dart';
 import 'cadastro_screen.dart';
 import 'lista_clientes_screen.dart';
 import 'login_screen.dart';
+import 'usuarios_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -16,6 +18,8 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   int _totalClientes = 0;
   int _totalPrioritarios = 0;
+  int _totalUsuarios = 0;
+  String _nomeUsuario = '';
   bool _carregando = true;
 
   @override
@@ -28,10 +32,14 @@ class _MenuScreenState extends State<MenuScreen> {
     try {
       final total = await ClienteService.contarTotal();
       final prioritarios = await ClienteService.contarPrioritarios();
+      final totalUsuarios = await UsuarioService.contarTotal();
+      final perfil = await UsuarioService.buscarPerfilAtual();
       if (!mounted) return;
       setState(() {
         _totalClientes = total;
         _totalPrioritarios = prioritarios;
+        _totalUsuarios = totalUsuarios;
+        _nomeUsuario = perfil?.nome ?? '';
         _carregando = false;
       });
     } catch (_) {
@@ -73,7 +81,9 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     final email = AuthService.emailAtual ?? '';
-    final nomeUsuario = email.split('@').first;
+    final nomeUsuario = _nomeUsuario.isNotEmpty
+        ? _nomeUsuario.split(' ').first
+        : email.split('@').first;
 
     return Scaffold(
       body: Container(
@@ -193,6 +203,17 @@ class _MenuScreenState extends State<MenuScreen> {
                                 cor: AppColors.gold,
                               ),
                             ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: _DashboardCard(
+                                icone: Icons.group_rounded,
+                                titulo: 'Usuários',
+                                valor: _carregando
+                                    ? '...'
+                                    : _totalUsuarios.toString(),
+                                cor: AppColors.accent,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 32),
@@ -252,6 +273,22 @@ class _MenuScreenState extends State<MenuScreen> {
                                 builder: (_) => const ListaClientesScreen(
                                   filtroInicial: true,
                                 ),
+                              ),
+                            );
+                            _carregarDashboard();
+                          },
+                        ),
+                        _MenuCard(
+                          icone: Icons.group_rounded,
+                          titulo: 'Gerenciar Usuários',
+                          descricao:
+                              'Editar e gerenciar dados dos usuários do sistema',
+                          cor: AppColors.accent,
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const UsuariosScreen(),
                               ),
                             );
                             _carregarDashboard();
