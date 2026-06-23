@@ -119,9 +119,7 @@ class _HomeScreenState extends State<HomeScreen>
                     child: ElevatedButton(
                       onPressed: () => Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => const LoginScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -158,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Sophia Menezes • Thiago Vinícius • Wesley Santos',
+                    'Desenvolvido por: Wesley Santos • Thiago Vinícius • Sophia Menezes • Mateus Nunes',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.3),
                       fontSize: 11,

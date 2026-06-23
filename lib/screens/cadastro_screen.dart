@@ -271,6 +271,26 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           controller: _emailCtrl,
                           icone: Icons.email_outlined,
                           teclado: TextInputType.emailAddress,
+                          validador: (v) {
+                            if (v != null && v.isNotEmpty) {
+                              final regex =
+                                  RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                              if (!regex.hasMatch(v)) {
+                                return 'E-mail inválido (ex: cliente@gmail.com)';
+                              }
+                              final dominio = v.split('@').last.toLowerCase();
+                              if (dominio == 'gmaill.com' || dominio == 'gmail.com.br') {
+                                return 'Você quis dizer @gmail.com?';
+                              }
+                              if (dominio == 'hotmal.com') {
+                                return 'Você quis dizer @hotmail.com?';
+                              }
+                              if (dominio == 'outlok.com') {
+                                return 'Você quis dizer @outlook.com?';
+                              }
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 14),
                         CampoTexto(

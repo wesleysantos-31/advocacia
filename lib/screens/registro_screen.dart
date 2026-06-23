@@ -254,8 +254,20 @@ class _RegistroScreenState extends State<RegistroScreen>
                               if (v == null || v.isEmpty) {
                                 return 'Informe o e-mail';
                               }
-                              if (!v.contains('@') || !v.contains('.')) {
-                                return 'E-mail inválido';
+                              final regex =
+                                  RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                              if (!regex.hasMatch(v)) {
+                                return 'E-mail inválido (ex: usuario@gmail.com)';
+                              }
+                              final dominio = v.split('@').last.toLowerCase();
+                              if (dominio == 'gmaill.com' || dominio == 'gmail.com.br') {
+                                return 'Você quis dizer @gmail.com?';
+                              }
+                              if (dominio == 'hotmal.com') {
+                                return 'Você quis dizer @hotmail.com?';
+                              }
+                              if (dominio == 'outlok.com') {
+                                return 'Você quis dizer @outlook.com?';
                               }
                               return null;
                             },
