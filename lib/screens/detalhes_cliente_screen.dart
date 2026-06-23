@@ -543,7 +543,7 @@ class _DetalhesClienteScreenState extends State<DetalhesClienteScreen> {
                                 onPressed: () async {
                                   await Clipboard.setData(
                                       ClipboardData(text: c.senhaGov!));
-                                  if (!mounted) return;
+                                  if (!context.mounted) return;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: const Text('Senha copiada!'),
@@ -688,6 +688,25 @@ class _DetalhesClienteScreenState extends State<DetalhesClienteScreen> {
                           SnackBar(
                             content:
                                 const Text('Não foi possível abrir o arquivo.'),
+                            backgroundColor: AppColors.error,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                        );
+                      }
+                    },
+                    onBaixar: () async {
+                      final messenger = ScaffoldMessenger.of(context);
+                      final uri = Uri.parse('${doc.url}?download=');
+                      try {
+                        await launchUrl(uri,
+                            mode: LaunchMode.externalApplication);
+                      } catch (_) {
+                        messenger.showSnackBar(
+                          SnackBar(
+                            content:
+                                const Text('Não foi possível baixar o arquivo.'),
                             backgroundColor: AppColors.error,
                             behavior: SnackBarBehavior.floating,
                             shape: RoundedRectangleBorder(

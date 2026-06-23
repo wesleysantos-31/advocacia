@@ -6,12 +6,14 @@ import '../theme.dart';
 class DocumentoTile extends StatelessWidget {
   final Documento documento;
   final VoidCallback onVisualizar;
+  final VoidCallback onBaixar;
   final VoidCallback onDeletar;
 
   const DocumentoTile({
     super.key,
     required this.documento,
     required this.onVisualizar,
+    required this.onBaixar,
     required this.onDeletar,
   });
 
@@ -97,6 +99,12 @@ class DocumentoTile extends StatelessWidget {
           ),
 
           // Ações
+          IconButton(
+            icon: const Icon(Icons.download_rounded, size: 20),
+            color: AppColors.primary,
+            tooltip: 'Baixar',
+            onPressed: onBaixar,
+          ),
           IconButton(
             icon: const Icon(Icons.open_in_new_rounded, size: 20),
             color: AppColors.accent,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/usuario.dart';
 import '../services/usuario_service.dart';
+import '../services/auth_service.dart';
 import '../theme.dart';
 
 class PerfilScreen extends StatefulWidget {
@@ -59,16 +60,30 @@ class _PerfilScreenState extends State<PerfilScreen> {
   }
 
   Future<void> _salvarPerfil() async {
-    if (!_formKey.currentState!.validate() || _perfil == null) return;
+    if (!_formKey.currentState!.validate()) return;
 
     setState(() => _salvando = true);
     try {
-      await UsuarioService.atualizar(
-        _perfil!.id!,
-        nome: _nomeCtrl.text.trim(),
-        email: _emailCtrl.text.trim(),
-        cargo: _cargo,
-      );
+      if (_perfil == null) {
+        final user = AuthService.usuarioAtual;
+        if (user != null) {
+          await UsuarioService.criarPerfil(
+            authId: user.id,
+            nome: _nomeCtrl.text.trim(),
+            email: _emailCtrl.text.trim(),
+            cargo: _cargo,
+          );
+          // Reload profile after creating
+          _perfil = await UsuarioService.buscarPerfilAtual();
+        }
+      } else {
+        await UsuarioService.atualizar(
+          _perfil!.id!,
+          nome: _nomeCtrl.text.trim(),
+          email: _emailCtrl.text.trim(),
+          cargo: _cargo,
+        );
+      }
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

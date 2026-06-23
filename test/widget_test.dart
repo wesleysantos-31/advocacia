@@ -319,6 +319,7 @@ void main() {
             body: DocumentoTile(
               documento: doc,
               onVisualizar: () {},
+              onBaixar: () {},
               onDeletar: () {},
             ),
           ),
@@ -345,6 +346,7 @@ void main() {
             body: DocumentoTile(
               documento: doc,
               onVisualizar: () {},
+              onBaixar: () {},
               onDeletar: () {},
             ),
           ),
